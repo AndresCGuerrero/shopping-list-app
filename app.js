@@ -1,7 +1,5 @@
 const d = document;
 
-const addButton = d.getElementById("add");
-
 let getItems = function () {
   const itemSub = d.getElementById("items-submit").value;
   if (itemSub === "") {
@@ -11,6 +9,7 @@ let getItems = function () {
   let item = d.createElement("li");
   item.classList.add("item");
   let label = d.createElement("label");
+
   //   ------
   let check = d.createElement("input");
   check.setAttribute("type", "checkbox");
@@ -23,13 +22,21 @@ let getItems = function () {
   item.appendChild(label);
   //   -----
 
+  //   -------
+
   d.querySelector(".items-list").appendChild(item);
 
   d.getElementById("items-submit").value = "";
+
+  item.addEventListener("click", function () {
+    item.remove();
+  });
 };
 
-let addItem = function () {
+let actions = function () {
+  const addButton = d.getElementById("add");
+
   addButton.addEventListener("click", getItems);
 };
 
-d.addEventListener("DOMContentLoaded", addItem);
+d.addEventListener("DOMContentLoaded", actions);
