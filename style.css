@@ -143,3 +143,26 @@ h1 {
     color: transparent;
   }
 }
+
+@media screen and (min-width: 64rem) and (min-height: 48rem) {
+  main {
+    width: 81rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .shopping-input {
+    width: 100%;
+    align-self: first baseline;
+  }
+
+  #items-submit::placeholder {
+    font-size: clamp(1rem, 3vw, 1.1rem);
+  }
+
+  .items {
+    width: 50%;
+  }
+}
