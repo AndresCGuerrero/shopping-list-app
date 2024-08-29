@@ -13,6 +13,7 @@ let getItems = function () {
   let img = d.createElement("img");
   let check = d.createElement("input");
   let div = d.createElement("div");
+  let buttonDelete = d.createElement("button");
 
   // add classes
   item.classList.add("item");
@@ -24,17 +25,16 @@ let getItems = function () {
   img.alt = "Delete button";
   check.setAttribute("type", "checkbox");
   check.setAttribute("class", "listcheck");
+  buttonDelete.setAttribute("type", "button");
 
   //   -----------------
   let textItem = d.createTextNode(itemSub);
   label.appendChild(textItem);
   label.appendChild(div);
   div.appendChild(check);
-  div.appendChild(img);
+  div.appendChild(buttonDelete);
+  buttonDelete.appendChild(img);
   item.appendChild(label);
-  //   -----
-
-  //   -------
 
   d.querySelector(".items-list").appendChild(item);
 
@@ -45,19 +45,20 @@ let getItems = function () {
       item.remove();
     })
   );
+
+  // modify desktop version
   check.addEventListener("change", function () {
     if (check.checked) {
       item.style.textDecoration = "line-through";
       item.style.opacity = "0.5";
+      let chekedItems = d.getElementById("items-done");
+      chekedItems.appendChild(item);
     } else {
       item.style.textDecoration = "none";
       item.style.opacity = "1";
+      d.querySelector(".items-list").appendChild(item);
     }
   });
-
-  // item.addEventListener("click", function () {
-  //   item.remove();
-  // });
 };
 
 let actions = function () {
