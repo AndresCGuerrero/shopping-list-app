@@ -21,6 +21,8 @@ video {
   --accent-color: #62929e;
 }
 
+/* General styles */
+
 html {
   font-family: var(--main-font);
 }
@@ -51,6 +53,12 @@ h1 {
   color: transparent;
 }
 
+.hidden {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+}
+
 .shopping-input {
   display: flex;
   flex-direction: column;
@@ -58,16 +66,19 @@ h1 {
   align-items: center;
 }
 
+/* titles styles  */
 .shopping-input h2,
-#items-done h2 {
+#items-done h2,
+#items-added h2 {
   color: var(--main-color);
 }
 
-#items-done h2 {
+#items-done h2,
+#items-added h2 {
   margin-top: 1rem;
-  font-size: 1.2rem;
 }
 
+/* items container styles */
 #items-done li {
   list-style-type: none;
 }
@@ -95,6 +106,7 @@ h1 {
   color: var(--accent-color);
 }
 
+/* add button styles */
 #add {
   margin: 1rem auto;
   padding: 1rem;
@@ -108,6 +120,7 @@ h1 {
   font-size: clamp(1rem, 2.5vw, 1.5rem);
 }
 
+/* items styles */
 .items {
   width: 80%;
   margin: 0 auto;
@@ -117,14 +130,16 @@ h1 {
   list-style: none;
   padding: 0;
   color: var(--main-color);
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .item label {
   display: flex;
   justify-content: space-between;
   margin-top: 0.5rem;
-  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-size: clamp(1rem, 1.9vw, 1.3rem);
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 .listcheck {
@@ -154,14 +169,13 @@ h1 {
   transform: scale(1.4);
 }
 
+/* Animations */
 @keyframes init {
   0% {
-    /* transform: scale(1.5); */
     color: #000;
   }
 
   50% {
-    /* transform: scale(1.4); */
     background-image: linear-gradient(
       300deg,
       rgba(57, 61, 63, 1) 10%,
@@ -174,7 +188,6 @@ h1 {
   }
 
   80% {
-    /* transform: scale(1.3); */
     background-image: linear-gradient(
       320deg,
       rgba(57, 61, 63, 1) 10%,
@@ -187,7 +200,6 @@ h1 {
   }
 
   100% {
-    /* transform: scale(1.3); */
     background-image: linear-gradient(
       340deg,
       rgba(57, 61, 63, 1) 10%,
@@ -200,18 +212,11 @@ h1 {
   }
 }
 
+/* Media queries */
 @media screen and (min-width: 64rem) and (min-height: 48rem) {
   main {
-    width: 81rem;
+    width: 75rem;
     margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-
-  .shopping-input {
-    width: 100%;
-    align-self: first baseline;
   }
 
   #items-submit::placeholder {
@@ -219,6 +224,6 @@ h1 {
   }
 
   .items {
-    width: 50%;
+    width: 70%;
   }
 }

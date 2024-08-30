@@ -1,6 +1,8 @@
 const d = document;
 
 const imgUrl = "./assets/img/trash-icon.svg";
+const itemAddedTitle = d.querySelector("#items-added h2");
+const itemDoneTitle = d.querySelector("#items-done h2");
 
 let getItems = function () {
   const itemSub = d.getElementById("items-submit").value;
@@ -36,6 +38,7 @@ let getItems = function () {
   buttonDelete.appendChild(img);
   item.appendChild(label);
 
+  itemAddedTitle.classList.remove("hidden");
   d.querySelector(".items-list").appendChild(item);
 
   d.getElementById("items-submit").value = "";
@@ -46,11 +49,11 @@ let getItems = function () {
     })
   );
 
-  // modify desktop version
   check.addEventListener("change", function () {
     if (check.checked) {
       item.style.textDecoration = "line-through";
       item.style.opacity = "0.5";
+      itemDoneTitle.classList.remove("hidden");
       let chekedItems = d.getElementById("items-done");
       chekedItems.appendChild(item);
     } else {

@@ -15,7 +15,16 @@
   </head>
   <body>
     <header>
-      <h1>Shopping List</h1>
+      <h1>To-do List</h1>
+      <!-- <div class="nav">
+        <nav>
+          <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+          </ul>
+        </nav>
+      </div> -->
     </header>
     <main>
       <div class="shopping-input">
@@ -26,14 +35,19 @@
           name="items-submit"
           id="items-submit"
           placeholder="Ingresa un item"
+          maxlength="34"
+          minlength="1"
         />
         <button type="button" id="add">Agregar</button>
       </div>
-      <div class="items">
-        <ol class="items-list"></ol>
-      </div>
-      <div class="items" id="items-done">
-        <h2>Elementos completados</h2>
+      <div class="items-container">
+        <div class="items" id="items-added">
+          <h2 class="hidden">Tu lista:</h2>
+          <ol class="items-list"></ol>
+        </div>
+        <div class="items" id="items-done">
+          <h2 class="hidden">Elementos completados:</h2>
+        </div>
       </div>
     </main>
     <script src="./app.js"></script>
