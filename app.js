@@ -1,87 +1,80 @@
 const d = document;
-
-const imgUrl = "./assets/img/trash-icon.svg";
+const addButton = d.getElementById("add");
+const IMG_URL = "./assets/img/trash-icon.svg";
 const itemAddedTitle = d.querySelector("#items-added h2");
 const itemDoneTitle = d.querySelector("#items-done h2");
+const itemsList = d.querySelector(".items-list");
+const doneList = d.getElementById("items-done");
 
-let getItems = () => {
-  const itemSub = d.getElementById("items-submit").value;
-  if (itemSub === "") {
-    return false;
-  }
-  // create elements
-  let item = d.createElement("li");
-  let label = d.createElement("label");
-  let img = d.createElement("img");
-  let check = d.createElement("input");
-  let div = d.createElement("div");
-  let buttonDelete = d.createElement("button");
-
-  // add classes
-  item.classList.add("item");
-  img.classList.add("delete-item");
-  div.classList.add("interaction-btns");
-
-  //  atributes & sources
-  img.src = imgUrl;
-  img.alt = "Delete button";
-  check.setAttribute("type", "checkbox");
-  check.setAttribute("class", "listcheck");
-  buttonDelete.setAttribute("type", "button");
-
-  //   append items
-  let textItem = d.createTextNode(itemSub);
-  label.appendChild(textItem);
-  label.appendChild(div);
-  div.appendChild(check);
-  div.appendChild(buttonDelete);
-  buttonDelete.appendChild(img);
-  item.appendChild(label);
-
-  itemAddedTitle.classList.remove("hidden");
-  d.querySelector(".items-list").appendChild(item);
-
-  d.getElementById("items-submit").value = "";
-
-  if (
-    img.addEventListener("click", function () {
-      item.remove();
-      checkEmptiness();
-    })
-  );
-
-  check.addEventListener("change", () => {
-    if (check.checked) {
-      item.style.textDecoration = "line-through";
-      item.style.opacity = "0.5";
-      itemDoneTitle.classList.remove("hidden");
-      let chekedItems = d.getElementById("items-done");
-      chekedItems.appendChild(item);
-    } else {
-      item.style.textDecoration = "none";
-      item.style.opacity = "1";
-      d.querySelector(".items-list").appendChild(item);
-      checkEmptiness();
-    }
-    checkEmptiness();
-  });
-
-  checkEmptiness();
-};
-
-let checkEmptiness = () => {
-  let list = d.querySelector(".items-list");
-  if (!list.hasChildNodes()) {
+const checkIfListIsEmpty = () => {
+  if (!itemsList.hasChildNodes()) {
     itemAddedTitle.classList.add("hidden");
   } else {
     itemAddedTitle.classList.remove("hidden");
   }
 };
 
-let actions = () => {
-  const addButton = d.getElementById("add");
+const addItemToList = () => {
+  const itemInputElement = d.getElementById("items-submit");
+  const itemInput = itemInputElement.value.trim();
 
-  addButton.addEventListener("click", getItems);
+  if (itemInput === "") return;
+
+  // create elements
+  const item = d.createElement("li");
+  const label = d.createElement("label");
+  const div = d.createElement("div");
+  const check = d.createElement("input");
+  const buttonDelete = d.createElement("button");
+  const img = d.createElement("img");
+
+  // add classes & attributes
+  item.classList.add("item");
+  div.classList.add("interaction-btns");
+  check.type = "checkbox";
+  check.classList.add("listcheck");
+  buttonDelete.type = "button";
+  img.src = IMG_URL;
+  img.alt = "Delete button";
+  img.classList.add("delete-item");
+
+  //   append items
+  label.textContent = itemInput;
+  label.appendChild(div);
+  div.appendChild(check);
+  div.appendChild(buttonDelete);
+  buttonDelete.appendChild(img);
+  item.appendChild(label);
+
+  itemsList.appendChild(item);
+  itemAddedTitle.classList.remove("hidden");
+  itemInputElement.value = "";
+
+  img.addEventListener("click", () => {
+    item.remove();
+    checkIfListIsEmpty();
+  });
+
+  check.addEventListener("change", () => {
+    if (check.checked) {
+      item.style.textDecoration = "line-through";
+      item.style.opacity = "0.5";
+      doneList.appendChild(item);
+      itemDoneTitle.classList.remove("hidden");
+    } else {
+      item.style.textDecoration = "none";
+      item.style.opacity = "1";
+      itemsList.appendChild(item);
+      checkIfListIsEmpty();
+    }
+    checkIfListIsEmpty();
+  });
+
+  checkIfListIsEmpty();
 };
 
-d.addEventListener("DOMContentLoaded", actions);
+const initialize = () => {
+  addButton.addEventListener("click", addItemToList);
+};
+
+d.addEventListener("DOMContentLoaded", initialize);
