@@ -4,7 +4,7 @@ const imgUrl = "./assets/img/trash-icon.svg";
 const itemAddedTitle = d.querySelector("#items-added h2");
 const itemDoneTitle = d.querySelector("#items-done h2");
 
-let getItems = function () {
+let getItems = () => {
   const itemSub = d.getElementById("items-submit").value;
   if (itemSub === "") {
     return false;
@@ -29,7 +29,7 @@ let getItems = function () {
   check.setAttribute("class", "listcheck");
   buttonDelete.setAttribute("type", "button");
 
-  //   -----------------
+  //   append items
   let textItem = d.createTextNode(itemSub);
   label.appendChild(textItem);
   label.appendChild(div);
@@ -46,10 +46,11 @@ let getItems = function () {
   if (
     img.addEventListener("click", function () {
       item.remove();
+      checkEmptiness();
     })
   );
 
-  check.addEventListener("change", function () {
+  check.addEventListener("change", () => {
     if (check.checked) {
       item.style.textDecoration = "line-through";
       item.style.opacity = "0.5";
@@ -60,15 +61,27 @@ let getItems = function () {
       item.style.textDecoration = "none";
       item.style.opacity = "1";
       d.querySelector(".items-list").appendChild(item);
+      checkEmptiness();
     }
+    checkEmptiness();
   });
+
+  checkEmptiness();
 };
 
-let actions = function () {
+let checkEmptiness = () => {
+  let list = d.querySelector(".items-list");
+  if (!list.hasChildNodes()) {
+    itemAddedTitle.classList.add("hidden");
+  } else {
+    itemAddedTitle.classList.remove("hidden");
+  }
+};
+
+let actions = () => {
   const addButton = d.getElementById("add");
 
   addButton.addEventListener("click", getItems);
-  checked();
 };
 
 d.addEventListener("DOMContentLoaded", actions);
